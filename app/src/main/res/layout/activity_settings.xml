@@ -118,8 +118,8 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText9"
-        tools:layout_editor_absoluteX="122dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="122dp" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -130,6 +130,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toEndOf="@+id/editText9"
-        tools:layout_editor_absoluteY="326dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="326dp" />
 </android.support.constraint.ConstraintLayout>
