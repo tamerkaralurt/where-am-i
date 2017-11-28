@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/holo_blue_bright"
-    tools:context="com.kutuphanelerim.uzman.whereami.Main3Activity">
+    tools:context="com.kutuphanelerim.uzman.whereami.SettingsActivity">
 
     <TextView
         android:id="@+id/textView7"
@@ -14,7 +14,9 @@
         android:text="Setting"
         android:textColor="@android:color/background_light"
         android:textSize="24sp"
-        tools:layout_editor_absoluteX="154dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="16dp" />
 
     <TextView
@@ -23,7 +25,9 @@
         android:layout_height="24dp"
         android:text="Username:"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="159dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="62dp" />
 
     <EditText
@@ -32,7 +36,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="85dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="86dp" />
 
     <TextView
@@ -41,7 +47,9 @@
         android:layout_height="wrap_content"
         android:text="Password:"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="160dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="132dp" />
 
     <EditText
@@ -49,8 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="85dp"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="151dp" />
 
     <TextView
@@ -59,7 +69,9 @@
         android:layout_height="wrap_content"
         android:text="Password Confirm:"
         android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="133dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="197dp" />
 
     <EditText
@@ -67,8 +79,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="84dp"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="216dp" />
 
     <TextView
@@ -78,43 +92,44 @@
         android:text="Repeat Time:"
         android:textColor="@android:color/background_light"
         android:textSize="18sp"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="292dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="286dp" />
 
     <EditText
         android:id="@+id/editText9"
         android:layout_width="105dp"
         android:layout_height="39dp"
+        android:layout_marginStart="84dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="332dp" />
-
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="37dp"
-        android:text="Second"
-        android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="221dp"
-        tools:layout_editor_absoluteY="334dp" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="81dp"
-        android:layout_height="35dp"
-        android:text="Munite"
-        android:textColor="@android:color/background_light"
-        tools:layout_editor_absoluteX="219dp"
-        tools:layout_editor_absoluteY="292dp" />
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="326dp" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="141dp"
         android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/holo_green_light"
         android:text="Submit"
         android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editText9"
         tools:layout_editor_absoluteX="122dp"
-        tools:layout_editor_absoluteY="396dp" />
+        tools:ignore="MissingConstraints" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="166dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toEndOf="@+id/editText9"
+        tools:layout_editor_absoluteY="326dp"
+        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>
