@@ -67,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
                     {
                         Log.e("error", e.getMessage());
                     }
-
-
                 }
             };
         }
@@ -114,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext(), GPS_Service.class);
                 startService(i);
                 // Gelen kullanıcıyı sisteme giriş yaptıracaz.
+                Intent mainPage = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(mainPage);
             }
         });
 

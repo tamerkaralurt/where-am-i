@@ -1,7 +1,9 @@
 package com.kutuphanelerim.uzman.whereami;
 
+import android.content.DialogInterface;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,14 +21,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Button btn_register;
     private EditText edit_username,edit_password,edit_password_confirm;
-
     private String result;
+    veriKaynagi vk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        vk = new veriKaynagi(this);
+        vk.openDB();
         btn_register =(Button)findViewById(R.id.btn_register);
         edit_username =(EditText)findViewById(R.id.edit_username);
         edit_password =(EditText)findViewById(R.id.edit_password);
@@ -35,43 +38,69 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Users user = new Users(getApplicationContext());
                 try {
-                    if (edit_password.getText().toString().equals(edit_password_confirm.getText().toString())){
+                    if (edit_password.getText().toString()
+                            .equals(edit_password_confirm.getText().toString())){
                         try
                         {
                             Calendar calender = Calendar.getInstance();
-                            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            SimpleDateFormat df =
+                                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             String formattedDate = df.format(calender.getTime());
-                            result = edit_username.getText().toString() + " " + edit_password.getText().toString() + " " + formattedDate.toString()+ " " + formattedDate.toString();
+                            /* Txt Dosyasina Ekleme */
+                            result = edit_username.getText().toString()
+                                    + " " + edit_password.getText().toString()
+                                    + " " + formattedDate.toString()
+                                    + " " + formattedDate.toString();
                             File myFile = new File("/storage/emulated/0/data.txt");
-
                             if(!myFile.exists())
                             {
                                 myFile.createNewFile();
                             }
-
                             FileOutputStream fOut = new FileOutputStream(myFile);
                             OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
                             myOutWriter.append(result);
                             myOutWriter.close();
-                            Log.e("Basarili", "Kullanıcı Oluşturuldu.");
                             fOut.close();
+                            /* #Txt Dosyasina Ekleme */
+                            Users user = new Users(
+                                    edit_username.toString(),
+                                    edit_password.toString(),
+                                    formattedDate,
+                                    formattedDate
+                            );
+                            vk.createUser(user);
+                            Log.e("Basarili", "Kullanıcı Oluşturuldu.");
+                            finish();
                         }
-                        catch (Exception e)
-                        {
+                        catch (Exception e){
                             Log.e("error", e.getMessage());
                         }
-                        //user.userAdd(edit_username.toString(),edit_password.toString(),formattedDate.toString(),formattedDate.toString());
                     }else{
                         Log.e("Sifreler", "Şifreler Uyuşmadı.");
                     }
-                }catch (Exception e)
-                {
+                }catch (Exception e){
                     Log.e("error", e.getMessage());
                 }
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        vk.openDB();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vk.closeDB();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        vk.closeDB();
     }
 }
