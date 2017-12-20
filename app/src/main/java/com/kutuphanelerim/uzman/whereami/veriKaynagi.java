@@ -55,18 +55,20 @@ public class veriKaynagi {
 
     public List<Coordinates> selectCoordinate(){
         List<Coordinates> listCoordinates = new ArrayList<Coordinates>();
-        Coordinates coordinates = new Coordinates();
         String columns[] = {"id","user_id","longitude","latitude","created_at"};
         Cursor cursor = DB.query("Coordinates", columns, null,null,null,null,null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
+            Coordinates coordinates = new Coordinates();
             coordinates.setId(cursor.getInt(0));
             coordinates.setUser_id(cursor.getInt(1));
             coordinates.setLongitude(cursor.getString(2));
             coordinates.setLatitude(cursor.getString(3));
             coordinates.setCreated_at(cursor.getString(4));
             listCoordinates.add(coordinates);
+            cursor.moveToNext();
         }
+        cursor.close();
         return listCoordinates;
     }
 
