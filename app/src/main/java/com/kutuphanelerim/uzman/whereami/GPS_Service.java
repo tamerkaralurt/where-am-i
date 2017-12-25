@@ -36,6 +36,8 @@ public class GPS_Service extends Service {
             public void onLocationChanged(Location location) {
                 Intent i = new Intent("location_update");
                 i.putExtra("coordinates",location.getLongitude()+ " " + location.getLatitude()); //Location enlem ve boylam alınıyor.
+                i.putExtra("longitude",location.getLongitude()); //longitude alınıyor.
+                i.putExtra("latitude",location.getLatitude()); //latitude alınıyor.
                 sendBroadcast(i);
             }
 

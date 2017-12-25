@@ -18,6 +18,13 @@ public class Coordinates {
     String latitude;
     String created_at;
 
+    public Coordinates(int user_id, String longitude, String latitude, String created_at) {
+        this.user_id = user_id;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.created_at = created_at;
+    }
+
     public int getId() {
         return id;
     }

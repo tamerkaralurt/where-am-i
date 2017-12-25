@@ -70,16 +70,16 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.e("Basarili", "Kullanıcı Oluşturuldu.");
                                 Toast.makeText(getApplicationContext(), "User Created! ID= "+id, Toast.LENGTH_LONG).show();
                             }else{
-                                Log.e("Basarili", "Kullanıcı Oluşturulamadi.");
+                                Log.e("Basarisiz", "Kullanıcı Oluşturulamadi.");
                                 Toast.makeText(getApplicationContext(), "User Not Created!", Toast.LENGTH_LONG).show();
                             }
                             //#Veritabanina Ekleme Islemleri Yapiliyor
                         }
                         catch (Exception e){
-                            Log.e("error", e.getMessage());
+                            Log.e("Hata", e.getMessage());
                         }
                     }else{
-                        Log.e("Sifreler", "Şifreler Uyuşmadı.");
+                        Log.e("Basarisiz", "Şifreler Uyuşmadı.");
                         Toast.makeText(getApplicationContext(), "Passwords Do Not Match!", Toast.LENGTH_LONG).show();
                     }
                 }catch (Exception e){
