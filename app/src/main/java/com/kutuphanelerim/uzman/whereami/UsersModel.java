@@ -7,7 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 
-public class Users {
+public class UsersModel {
 
     int id;
     String name;
@@ -15,7 +15,7 @@ public class Users {
     String created_at;
     String updated_at;
 
-    public Users(String name, String password, String created_at, String updated_at) {
+    public UsersModel(String name, String password, String created_at, String updated_at) {
         this.name = name;
         this.password = password;
         this.created_at = created_at;
@@ -65,5 +65,4 @@ public class Users {
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
     }
-
 }

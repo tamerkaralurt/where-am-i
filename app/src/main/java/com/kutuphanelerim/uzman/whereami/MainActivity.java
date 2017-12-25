@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver;
     //private TextView txt_location;
     private String result = ""; //Silinecek.
+    whereami_db DB;
 
     @Override
     protected void onResume() {
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        DB = new whereami_db(getApplicationContext());
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_register = (Button) findViewById(R.id.btn_register);
         txt_loginUsername = (EditText) findViewById(R.id.txt_loginUsername);
