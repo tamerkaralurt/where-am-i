@@ -84,11 +84,37 @@ public class whereami_db extends SQLiteOpenHelper{
         return 0;
     }
 
-    public void selectUser() {
+    public int selectUser(String name, String password) {
         try{
             SQLiteDatabase DB = this.getReadableDatabase();
             if (DB.isOpen()){
-
+                String sqlQuery = "SELECT * FROM " + usersTable;
+                Cursor cursor = DB.rawQuery(sqlQuery,null);
+                try {
+                    while (cursor.moveToNext()){
+                        if(name == cursor.getString(1)){
+                            if (password == cursor.getString(2)){
+                                return 1;
+                            }else{
+                                Log.e("error", "Sifre Yanlis!");
+                                Log.e("sonuc", cursor.getString(0));
+                                return 0;
+                            }
+                        }else{
+                            Log.e("error", "Boyle bir Uye Sistemde Yok!");
+                            Log.e("sonuc", cursor.getString(0));
+                            Log.e("sonuc", cursor.getString(1));
+                            Log.e("sonuc", cursor.getString(2));
+                            Log.e("sonuc", cursor.getString(3));
+                            return 2;
+                        }
+                    }
+                }catch (Exception e){
+                    Log.e("error", e.getMessage());
+                }finally {
+                    cursor.close();
+                    DB.close();
+                }
 
             }else{
                 Log.e("error", "Veritabani Acilamadi");
@@ -96,6 +122,7 @@ public class whereami_db extends SQLiteOpenHelper{
         }catch (Exception e){
             Log.e("error", e.getMessage());
         }
+        return 0;
     }
 
     public List<Coordinates> getCoordinatList() {

@@ -15,6 +15,13 @@ public class UsersModel {
     String created_at;
     String updated_at;
 
+    public UsersModel(){}
+
+    public UsersModel(String name,String password){
+        this.name = name;
+        this.password = password;
+    }
+
     public UsersModel(String name, String password, String created_at, String updated_at) {
         this.name = name;
         this.password = password;

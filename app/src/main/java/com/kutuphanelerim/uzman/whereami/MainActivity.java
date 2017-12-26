@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     //private TextView txt_location;
     private String result = ""; //Silinecek.
     whereami_db DB;
-    Coordinates coordinate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +45,25 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainPage = new Intent(MainActivity.this, MainPageActivity.class);
-                startActivity(mainPage);
+                if (txt_loginUsername.getText().toString().isEmpty() || txt_loginPassword.getText().toString().isEmpty()){
+                    Toast.makeText(getApplicationContext(), "There is empty area!", Toast.LENGTH_LONG).show();
+                }else{
+
+                    String name = txt_loginUsername.getText().toString();
+                    String password = txt_loginPassword.getText().toString();
+
+                    Log.e("Degerler", name+" "+password);
+
+                    if (DB.selectUser(name,password) == 1){
+                        Intent mainPage = new Intent(MainActivity.this, MainPageActivity.class);
+                        startActivity(mainPage);
+                    }else if(DB.selectUser(name,password) == 2) {
+                        Toast.makeText(getApplicationContext(), "User not found!", Toast.LENGTH_LONG).show();
+                    }else if(DB.selectUser(name,password) == 0){
+                        Toast.makeText(getApplicationContext(), "Password is wrong!", Toast.LENGTH_LONG).show();
+                    }
+
+                }
             }
         });
 
