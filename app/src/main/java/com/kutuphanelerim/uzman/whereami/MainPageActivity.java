@@ -89,7 +89,8 @@ public class MainPageActivity extends AppCompatActivity {
                                 Toast.makeText(MainPageActivity.this,"Location :"+ rowLocation,Toast.LENGTH_SHORT).show();
                                 //#Burada GridViewde Tiklanan Verinin Location Bilgisi Alinacak.
                                 //Uri location = Uri.parse("geo:"+rowLocation+"?z=18?q="+rowLocation+"(Location)");
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">?q=<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">(Location)"));
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLatitude()  + ">,<" + selection.getLongitude() + ">?q=<" + selection.getLatitude()  + ">,<" + selection.getLongitude() + ">(Location)"));
+                                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">?q=<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">(Location)"));
                                 //Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                                 startActivity(intent);
                             }
@@ -134,7 +135,8 @@ public class MainPageActivity extends AppCompatActivity {
                 Toast.makeText(MainPageActivity.this,"Location :"+ rowLocation,Toast.LENGTH_SHORT).show();
                 //#Burada GridViewde Tiklanan Verinin Location Bilgisi Alinacak.
                 //Uri location = Uri.parse("geo:"+rowLocation+"?z=18?q="+rowLocation+"(Location)");
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">?q=<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">(Location)"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLatitude()  + ">,<" + selection.getLongitude() + ">?q=<" + selection.getLatitude()  + ">,<" + selection.getLongitude() + ">(Location)"));
+                //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">?q=<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">(Location)"));
                 //Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
                 startActivity(intent);
             }
