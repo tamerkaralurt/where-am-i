@@ -21,6 +21,7 @@ public class whereami_db extends SQLiteOpenHelper{
     private static final String usersTable = "tbl_users";
     private static final String coordinatesTable = "tbl_coordinates";
     private static final int databaseVersion = 3;
+    public int userId;
 
 
     public whereami_db(Context context) {
@@ -87,21 +88,21 @@ public class whereami_db extends SQLiteOpenHelper{
 
     public boolean userLogin(String name, String password){
         SQLiteDatabase DB = this.getWritableDatabase();
-        String sqlQuery = "SELECT * FROM tbl_users WHERE name = "+name+" AND password = "+password+"";
-        String[] selectionArgs = {name,password};
-        String[] columns = {"name","password"};
         Cursor cursor = DB.query(usersTable,null,null, null,null,null,null,null);
         int nameIndex = cursor.getColumnIndex("name");
         int passwordIndex = cursor.getColumnIndex("password");
+        int idIndex = cursor.getColumnIndex("id");
         while (cursor.moveToNext()){
             String DBname = cursor.getString(nameIndex);
             String DBpassword = cursor.getString(passwordIndex);
+            int DBid = cursor.getInt(idIndex);
 
             //System.out.println("DB "+DBname + " " + DBpassword);
             //System.out.println("Android "+name + " " + password);
             //System.out.println("If ici " + DBname.equals(name) +"----"+ DBpassword.equals(password));
 
             if (DBname.equals(name) && DBpassword.equals(password)){
+                userId = DBid;
                 return true;
             }
         }

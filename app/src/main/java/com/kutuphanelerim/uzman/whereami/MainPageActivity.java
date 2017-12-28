@@ -104,11 +104,15 @@ public class MainPageActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), GPS_Service.class);
         startService(i);
         //Koordinat Listesi Cekiliyor.
-        String location[] = {"tamer","atacan"};
-        String history[] = {"1","2"};
         gridView = (GridView)findViewById(R.id.gridViewCoordinates);
         GridAdapter gridAdapter = new GridAdapter(this, DB.getCoordinatList());
         gridView.setAdapter(gridAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(),"Tikladin",Toast.LENGTH_SHORT).show();
+            }
+        });
         //#Koordinat Listesi Cekiliyor.
         if(!runtime_permission())
             enable_buttons();
