@@ -71,7 +71,7 @@ public class whereami_db extends SQLiteOpenHelper{
             SQLiteDatabase DB = this.getWritableDatabase();
             if (DB.isOpen()){
                 ContentValues CV = new ContentValues();
-                CV.put("user_id", coordinate.getUser_id());
+                CV.put("user_id", userId);
                 CV.put("longitude", coordinate.getLongitude());
                 CV.put("latitude", coordinate.getLatitude());
                 CV.put("created_at", coordinate.getCreated_at());
@@ -112,7 +112,9 @@ public class whereami_db extends SQLiteOpenHelper{
     public List<Coordinates> getCoordinatList() {
         List<Coordinates> coordinatList = new ArrayList<Coordinates>();
         SQLiteDatabase DB = this.getReadableDatabase();
-        Cursor cursor = DB.query(coordinatesTable,null,null, null,null,null,null,null);
+        String selection = "user_id = ?";
+        String selectionArgs[] = {String.valueOf(userId).toString()};
+        Cursor cursor = DB.query(coordinatesTable,null,selection, selectionArgs,null,null,null,null);
 
         int rowID = cursor.getColumnIndex("id");
         int rowUserId = cursor.getColumnIndex("user_id");
