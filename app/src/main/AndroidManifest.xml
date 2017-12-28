@@ -27,9 +27,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SettingsActivity" />
         <service android:name=".GPS_Service" /> <!-- Servis Ekledim -->
-        <activity
-            android:name=".MainPageActivity"
-            android:label="Coordinate List"></activity>
+        <activity android:name=".MainPageActivity" android:label="Coordinate List"></activity>
     </application>
 
 </manifest>

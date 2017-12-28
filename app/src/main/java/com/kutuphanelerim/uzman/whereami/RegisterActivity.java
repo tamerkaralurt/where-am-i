@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
                             fOut.close();
                             /* #Txt Dosyasina Ekleme */
                             //Veritabanina Ekleme Islemleri Yapiliyor.
-                            UsersModel user = new UsersModel(edit_username.toString(),edit_password.toString(),formattedDate.toString(),formattedDate.toString()); //UserModel classindan bir nesne tanimladik ve gelen verileri bu nesneye gonderdik.
+                            UsersModel user = new UsersModel(edit_username.getText().toString(),edit_password.getText().toString(),formattedDate.toString(),formattedDate.toString()); //UserModel classindan bir nesne tanimladik ve gelen verileri bu nesneye gonderdik.
                             long id = DB.createUser(user); //Gelen verileri veritabanina gonderiyoruz ve kayit olan uyenin id degerini geri donderiyor.
                             if (id > 0){ //Kullanici kayit edilmisse.
                                 Log.e("Basarili", "Kullanıcı Oluşturuldu.");

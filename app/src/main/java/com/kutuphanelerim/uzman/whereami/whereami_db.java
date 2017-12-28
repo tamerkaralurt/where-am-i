@@ -84,45 +84,27 @@ public class whereami_db extends SQLiteOpenHelper{
         return 0;
     }
 
-    public int selectUser(String name, String password) {
-        try{
-            SQLiteDatabase DB = this.getReadableDatabase();
-            if (DB.isOpen()){
-                String sqlQuery = "SELECT * FROM " + usersTable;
-                Cursor cursor = DB.rawQuery(sqlQuery,null);
-                try {
-                    while (cursor.moveToNext()){
-                        if(name == cursor.getString(1)){
-                            if (password == cursor.getString(2)){
-                                return 1;
-                            }else{
-                                Log.e("error", "Sifre Yanlis!");
-                                Log.e("sonuc", cursor.getString(0));
-                                return 0;
-                            }
-                        }else{
-                            Log.e("error", "Boyle bir Uye Sistemde Yok!");
-                            Log.e("sonuc", cursor.getString(0));
-                            Log.e("sonuc", cursor.getString(1));
-                            Log.e("sonuc", cursor.getString(2));
-                            Log.e("sonuc", cursor.getString(3));
-                            return 2;
-                        }
-                    }
-                }catch (Exception e){
-                    Log.e("error", e.getMessage());
-                }finally {
-                    cursor.close();
-                    DB.close();
-                }
+    public boolean userLogin(String name, String password){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        String sqlQuery = "SELECT * FROM tbl_users WHERE name = "+name+" AND password = "+password+"";
+        String[] selectionArgs = {name,password};
+        String[] columns = {"name","password"};
+        Cursor cursor = DB.query(usersTable,null,null, null,null,null,null,null);
+        int nameIndex = cursor.getColumnIndex("name");
+        int passwordIndex = cursor.getColumnIndex("password");
+        while (cursor.moveToNext()){
+            String DBname = cursor.getString(nameIndex);
+            String DBpassword = cursor.getString(passwordIndex);
 
-            }else{
-                Log.e("error", "Veritabani Acilamadi");
+            //System.out.println("DB "+DBname + " " + DBpassword);
+            //System.out.println("Android "+name + " " + password);
+            //System.out.println("If ici " + DBname.equals(name) +"----"+ DBpassword.equals(password));
+
+            if (DBname.equals(name) && DBpassword.equals(password)){
+                return true;
             }
-        }catch (Exception e){
-            Log.e("error", e.getMessage());
         }
-        return 0;
+        return false;
     }
 
     public List<Coordinates> getCoordinatList() {

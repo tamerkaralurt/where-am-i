@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -48,21 +49,18 @@ public class MainActivity extends AppCompatActivity {
                 if (txt_loginUsername.getText().toString().isEmpty() || txt_loginPassword.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(), "There is empty area!", Toast.LENGTH_LONG).show();
                 }else{
-
                     String name = txt_loginUsername.getText().toString();
                     String password = txt_loginPassword.getText().toString();
-
-                    Log.e("Degerler", name+" "+password);
-
-                    if (DB.selectUser(name,password) == 1){
+                    DB = new whereami_db(getApplicationContext());
+                    Log.e("UserAndPassword", name + " " + password);
+                    Boolean bool = DB.userLogin(name,password);
+                    Log.e("DB", bool.toString());
+                    if (DB.userLogin(name,password)){
                         Intent mainPage = new Intent(MainActivity.this, MainPageActivity.class);
                         startActivity(mainPage);
-                    }else if(DB.selectUser(name,password) == 2) {
-                        Toast.makeText(getApplicationContext(), "User not found!", Toast.LENGTH_LONG).show();
-                    }else if(DB.selectUser(name,password) == 0){
-                        Toast.makeText(getApplicationContext(), "Password is wrong!", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Username or Password is wrong!", Toast.LENGTH_LONG).show();
                     }
-
                 }
             }
         });
