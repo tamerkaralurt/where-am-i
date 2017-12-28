@@ -12,13 +12,20 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainPageActivity extends AppCompatActivity {
 
@@ -26,6 +33,7 @@ public class MainPageActivity extends AppCompatActivity {
     private String result = ""; //Silinecek.
     whereami_db DB;
     Coordinates coordinate;
+    GridView gridView;
 
     @Override
     protected void onResume() {
@@ -65,6 +73,10 @@ public class MainPageActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Coordinate Not Created!", Toast.LENGTH_LONG).show();
                         }
                         //#Veritabani Kayit Islemleri
+
+                        //Veritabanindan Koordinat Bilgileri Cekiliyor.
+
+                        //#Veritabanindan Koordinat Bilgileri Cekiliyor.
                     }
                     catch (Exception e)
                     {
@@ -91,6 +103,13 @@ public class MainPageActivity extends AppCompatActivity {
         DB = new whereami_db(getApplicationContext());
         Intent i = new Intent(getApplicationContext(), GPS_Service.class);
         startService(i);
+        //Koordinat Listesi Cekiliyor.
+        String location[] = {"tamer","atacan"};
+        String history[] = {"1","2"};
+        gridView = (GridView)findViewById(R.id.gridViewCoordinates);
+        GridAdapter gridAdapter = new GridAdapter(this, DB.getCoordinatList());
+        gridView.setAdapter(gridAdapter);
+        //#Koordinat Listesi Cekiliyor.
         if(!runtime_permission())
             enable_buttons();
     }

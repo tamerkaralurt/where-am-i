@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,8 +111,8 @@ public class whereami_db extends SQLiteOpenHelper{
     public List<Coordinates> getCoordinatList() {
         List<Coordinates> coordinatList = new ArrayList<Coordinates>();
         SQLiteDatabase DB = this.getReadableDatabase();
-        String sqlQuery = "SELECT * FROM " + coordinatesTable;
-        Cursor cursor = DB.rawQuery(sqlQuery,null);
+        Cursor cursor = DB.query(coordinatesTable,null,null, null,null,null,null,null);
+
         int rowID = cursor.getColumnIndex("id");
         int rowUserId = cursor.getColumnIndex("user_id");
         int rowLongitude = cursor.getColumnIndex("longitude");
@@ -120,8 +121,7 @@ public class whereami_db extends SQLiteOpenHelper{
 
         try {
             while (cursor.moveToNext()){
-                Coordinates coordinates = new Coordinates(cursor.getInt(rowUserId),cursor.getString(rowLongitude),cursor.getString(rowLatitude),cursor.getString(rowCreatedAt));
-                coordinatList.add(coordinates);
+                coordinatList.add(new Coordinates(cursor.getInt(rowUserId),cursor.getString(rowLongitude),cursor.getString(rowLatitude),cursor.getString(rowCreatedAt)));
             }
         }catch (Exception e){
             Log.e("error", e.getMessage());
@@ -129,6 +129,7 @@ public class whereami_db extends SQLiteOpenHelper{
             cursor.close();
             DB.close();
         }
+
         return coordinatList;
     }
 }
