@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -75,7 +77,23 @@ public class MainPageActivity extends AppCompatActivity {
                         //#Veritabani Kayit Islemleri
 
                         //Veritabanindan Koordinat Bilgileri Cekiliyor.
-
+                        gridView = (GridView)findViewById(R.id.gridViewCoordinates);
+                        final GridAdapter gridAdapter = new GridAdapter(MainPageActivity.this, DB.getCoordinatList());
+                        gridView.setAdapter(gridAdapter);
+                        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                //Burada GridViewde Tiklanan Verinin Location Bilgisi Alinacak.
+                                Coordinates selection = (Coordinates) adapterView.getItemAtPosition(i);
+                                String rowLocation = selection.getLongitude()+","+selection.getLatitude();
+                                Toast.makeText(MainPageActivity.this,"Location :"+ rowLocation,Toast.LENGTH_SHORT).show();
+                                //#Burada GridViewde Tiklanan Verinin Location Bilgisi Alinacak.
+                                //Uri location = Uri.parse("geo:"+rowLocation+"?z=18?q="+rowLocation+"(Location)");
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">?q=<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">(Location)"));
+                                //Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+                                startActivity(intent);
+                            }
+                        });
                         //#Veritabanindan Koordinat Bilgileri Cekiliyor.
                     }
                     catch (Exception e)
@@ -105,12 +123,20 @@ public class MainPageActivity extends AppCompatActivity {
         startService(i);
         //Koordinat Listesi Cekiliyor.
         gridView = (GridView)findViewById(R.id.gridViewCoordinates);
-        GridAdapter gridAdapter = new GridAdapter(this, DB.getCoordinatList());
+        final GridAdapter gridAdapter = new GridAdapter(this, DB.getCoordinatList());
         gridView.setAdapter(gridAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getApplicationContext(),"Tikladin",Toast.LENGTH_SHORT).show();
+                //Burada GridViewde Tiklanan Verinin Location Bilgisi Alinacak.
+                Coordinates selection = (Coordinates) adapterView.getItemAtPosition(i);
+                String rowLocation = selection.getLongitude()+","+selection.getLatitude();
+                Toast.makeText(MainPageActivity.this,"Location :"+ rowLocation,Toast.LENGTH_SHORT).show();
+                //#Burada GridViewde Tiklanan Verinin Location Bilgisi Alinacak.
+                //Uri location = Uri.parse("geo:"+rowLocation+"?z=18?q="+rowLocation+"(Location)");
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">?q=<" + selection.getLongitude()  + ">,<" + selection.getLatitude() + ">(Location)"));
+                //Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+                startActivity(intent);
             }
         });
         //#Koordinat Listesi Cekiliyor.
