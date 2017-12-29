@@ -1,6 +1,7 @@
 package com.kutuphanelerim.uzman.whereami;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +17,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -36,6 +42,8 @@ public class MainPageActivity extends AppCompatActivity {
     whereami_db DB;
     Coordinates coordinate;
     GridView gridView;
+    private Button btn_date,btn_all;
+    private EditText txt_date;
 
     @Override
     protected void onResume() {
@@ -142,6 +150,28 @@ public class MainPageActivity extends AppCompatActivity {
             }
         });
         //#Koordinat Listesi Cekiliyor.
+
+        //Tarih Sorgulaması Yapılıyor.
+        btn_date = (Button)findViewById(R.id.btn_date);
+        btn_all = (Button)findViewById(R.id.btn_all);
+        txt_date = (EditText) findViewById(R.id.txt_date);
+//        txt_date.setText("2017-12-29");
+
+        btn_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GridAdapter gridAdapter = new GridAdapter(MainPageActivity.this, DB.getCoordinatListDate(txt_date.getText().toString()));
+                gridView.setAdapter(gridAdapter);
+            }
+        });
+        btn_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GridAdapter gridAdapter = new GridAdapter(MainPageActivity.this, DB.getCoordinatList());
+                gridView.setAdapter(gridAdapter);
+            }
+        });
+        //#Tarih Sorgulaması Yapılıyor.
         if(!runtime_permission())
             enable_buttons();
     }

@@ -135,4 +135,35 @@ public class whereami_db extends SQLiteOpenHelper{
 
         return coordinatList;
     }
+
+    public List<Coordinates> getCoordinatListDate(String date) {
+        List<Coordinates> coordinatList = new ArrayList<Coordinates>();
+        SQLiteDatabase DB = this.getReadableDatabase();
+//        String selection = "created_at LIKE ?";
+//        String[] columns = {"created_at"};
+//        String selectionArgs[] = {"%"+date+"%"};
+        Cursor cursor = DB.query(true,coordinatesTable, new String[] { "id",
+                        "user_id", "longitude", "latitude", "created_at" },  "created_at LIKE ?",
+                new String[] {"%"+ date+ "%" }, null, null, null,
+                null);
+
+        int rowID = cursor.getColumnIndex("id");
+        int rowUserId = cursor.getColumnIndex("user_id");
+        int rowLongitude = cursor.getColumnIndex("longitude");
+        int rowLatitude = cursor.getColumnIndex("latitude");
+        int rowCreatedAt = cursor.getColumnIndex("created_at");
+
+        try {
+            while (cursor.moveToNext()){
+                coordinatList.add(new Coordinates(cursor.getInt(rowUserId),cursor.getString(rowLongitude),cursor.getString(rowLatitude),cursor.getString(rowCreatedAt)));
+            }
+        }catch (Exception e){
+            Log.e("error", e.getMessage());
+        }finally {
+            cursor.close();
+            DB.close();
+        }
+
+        return coordinatList;
+    }
 }
